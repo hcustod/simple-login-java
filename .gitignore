@@ -1,0 +1,66 @@
+# Maven
+target/
+*.war
+
+# IDE
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Node assets if any (you had /dist, /plugins, etc. already built)
+dist/
+
+# OS cruft
+.DS_Store
+
+# IDE cruft
+/.project
+/.classpath
+/.settings/
+/.idea/
+/*.iml
+.vscode/
+
+# Maven build output
+/target/
+/*.war
+*.log
+
+# Tomcat local deploys (if you ever copy into project by mistake)
+webapps/
+work/
+logs/
+temp/
+
+# Local config / secrets
+*.env
+*.env.*
+.envrc
+setenv.sh
+*.local.properties
+*.secrets
+*.keystore
+*.jks
+*.p12
+*.pem
+*.crt
+*.key
+
+# SQL dumps (keep seed/init under version control if it has no secrets)
+*.sql
+!src/main/resources/db/**
+
+# Node bits (if any front-end assets creep in)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
