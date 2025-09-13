@@ -55,7 +55,6 @@ setenv.sh
 *.key
 
 # SQL dumps (keep seed/init under version control if it has no secrets)
-*.sql
 !src/main/resources/db/**
 
 # Node bits (if any front-end assets creep in)
