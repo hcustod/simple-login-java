@@ -1,50 +1,52 @@
-# Maven
-target/
-*.war
-
-# IDE
+# -----------------------------
+# OS / Editor cruft
+# -----------------------------
+.DS_Store
+.AppleDouble
+Thumbs.db
+.vscode/
+.idea/
+*.iml
 .classpath
 .project
 .settings/
-.idea/
-*.iml
 
-# macOS
-.DS_Store
-
-# Logs
+# -----------------------------
+# Maven / Java build artifacts
+# -----------------------------
+target/
+*.class
+*.war
+*.ear
+*.jar
 *.log
 
-# Node assets if any (you had /dist, /plugins, etc. already built)
+# If you have multiple modules (like hostedftp-auth), this still ignores their targets
+**/target/
+
+# -----------------------------
+# Node/Frontend (if any sneaks in)
+# -----------------------------
+node_modules/
 dist/
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
 
-# OS cruft
-.DS_Store
-
-# IDE cruft
-/.project
-/.classpath
-/.settings/
-/.idea/
-/*.iml
-.vscode/
-
-# Maven build output
-/target/
-/*.war
-*.log
-
-# Tomcat local deploys (if you ever copy into project by mistake)
+# -----------------------------
+# Tomcat (in case anything gets copied into the repo by mistake)
+# -----------------------------
 webapps/
 work/
 logs/
 temp/
 
-# Local config / secrets
+# -----------------------------
+# Local config / secrets (NEVER COMMIT)
+# -----------------------------
 *.env
 *.env.*
 .envrc
-setenv.sh
 *.local.properties
 *.secrets
 *.keystore
@@ -54,12 +56,27 @@ setenv.sh
 *.crt
 *.key
 
-# SQL dumps (keep seed/init under version control if it has no secrets)
-!src/main/resources/db/**
+# If you ever keep a local setenv in the project (Tomcat's real one lives under CATALINA_HOME/bin)
+setenv.sh
 
-# Node bits (if any front-end assets creep in)
-node_modules/
-npm-debug.log*
-yarn-error.log*
-pnpm-lock.yaml
+# -----------------------------
+# SQL dumps (keep your curated sql-scripts/ tracked)
+# -----------------------------
+*.sql
+!sql-scripts/**
 
+# -----------------------------
+# Misc caches / coverage
+# -----------------------------
+**/.cache/
+coverage/
+jacoco.exec
+
+# -----------------------------
+# IntelliJ / Eclipse workspace noise (some editors recreate on open)
+# -----------------------------
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/**/httpRequests

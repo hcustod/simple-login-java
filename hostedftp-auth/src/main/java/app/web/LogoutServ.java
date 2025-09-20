@@ -1,4 +1,4 @@
-package app;
+package app.web;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,5 +11,10 @@ public class LogoutServ extends HttpServlet {
     HttpSession s = req.getSession(false);
     if (s != null) s.invalidate();
     resp.sendRedirect(req.getContextPath() + "/login");
+  }
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    doPost(req, resp);
   }
 }
