@@ -11,7 +11,7 @@ public final class AuthService {
   
 
   private static final int MIN_PW_LEN = Integer.parseInt(
-    System.getenv().getOrDefault("AUTH_MIN_PW_LEN", "12")
+    System.getenv().getOrDefault("AUTH_MIN_PW_LEN", "5")
     );
 
   public static int getMinPasswordLength() { return MIN_PW_LEN; }

@@ -1,22 +1,33 @@
-package app;
+package app.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class Db {
+public final class Db {
 
-  private static String pick(String k, String def) {
-    String v = System.getProperty(k);
-    if (v == null || v.isBlank()) v = System.getenv(k);
-    return (v == null || v.isBlank()) ? def : v;
+  private static String env(String key) {
+    String v = System.getProperty(key);
+    if (v == null || v.isBlank()) v = System.getenv(key);
+    return v == null ? "" : v.trim();
   }
 
-  private static final String URL  = pick("DB_URL",
-      "jdbc:mysql://localhost:3306/hostedftp?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC");
-  private static final String USER = pick("DB_USER", "root");
-  private static final String PASS = pick("DB_PASS", "");
+  private static String required(String key) {
+    String v = env(key);
+    if (v.isBlank()) throw new IllegalStateException(key + " is not set");
+    return v;
+  }
+
+  private static final String URL  = required("DB_URL");
+  private static final String USER = env("DB_USER");
+  private static final String PASS = resolvePass();
+
+  private static String resolvePass() {
+    String p = env("DB_PASS");
+    if (p.isBlank()) p = env("DB_PASSWORD");
+    return p;
+  }
 
   static {
     try {
@@ -28,8 +39,10 @@ public class Db {
 
   public static Connection conn() throws SQLException {
     Properties props = new Properties();
-    props.setProperty("user", USER);
-    props.setProperty("password", PASS == null ? "" : PASS);
+    if (!USER.isBlank()) props.setProperty("user", USER);
+    if (!PASS.isBlank()) props.setProperty("password", PASS);
     return DriverManager.getConnection(URL, props);
   }
+
+  private Db() {}
 }
